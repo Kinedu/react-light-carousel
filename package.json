@@ -2,7 +2,7 @@
   "name": "react-light-carousel",
   "version": "1.0.1",
   "description": "A light weight react based carousel for multiple purposes",
-  "main": "src/index.js",
+  "main": "dist/main.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "dev": "webpack --mode development",
