@@ -42,3 +42,5 @@ const BasicCarousel = () => {
 | prevBtn | string or component | 'prev' | The previous slide button
 | nextBtn | string or component | 'next' | The next slide button
 | responsive | object | {} | You can pass an object to tell the slideshow how many slides to show on a given breakpoint (in pixels)
+| onPreviousSlide | function | () => {} | Callback when finish sliding to previous slide
+| onNextSlide | function | () => {} | Callback when finish sliding to next slide
