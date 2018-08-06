@@ -4,7 +4,7 @@ import * as R from 'ramda';
 
 const equalAt = (a, b, path) => R.eqBy(R.view(R.lensPath(path)), a, b);
 
-export const LightCarouselContainer = ({ children, containerStyle, ...props }) => (
+const LightCarouselContainer = ({ children, containerStyle, ...props }) => (
   <div style={{
     position: 'relative',
     display: 'block',
@@ -13,7 +13,7 @@ export const LightCarouselContainer = ({ children, containerStyle, ...props }) =
   }}>{children}</div>
 );
 
-export const Slideshow = ({ children, className, slideshowStyle, slideshowRef, ...props }) => (
+const Slideshow = ({ children, className, slideshowStyle, slideshowRef, ...props }) => (
   <div
     {...props}
     ref={slideshowRef}
@@ -26,7 +26,7 @@ export const Slideshow = ({ children, className, slideshowStyle, slideshowRef, .
   }}>{children}</div>
 );
 
-export const SlidesContainer = ({ children, slideshowWidth, slideContainerRef, ...props }) => (
+const SlidesContainer = ({ children, slideshowWidth, slideContainerRef, ...props }) => (
   <div
     {...props}
     ref={slideContainerRef}
@@ -37,7 +37,7 @@ export const SlidesContainer = ({ children, slideshowWidth, slideContainerRef, .
   }}>{children}</div>
 );
 
-export const Slide = ({ children, autoWidth, slideWidth, gap, ...props }) => (
+const Slide = ({ children, autoWidth, slideWidth, gap, ...props }) => (
   <div {...props} style={{
     position: 'relative',
     display: 'block',
@@ -47,10 +47,10 @@ export const Slide = ({ children, autoWidth, slideWidth, gap, ...props }) => (
   }}>{children}</div>
 );
 
-export const ButtonsContainer = ({ children, buttonsContainerStyle, ...props }) =>
+const ButtonsContainer = ({ children, buttonsContainerStyle, ...props }) =>
   (<div {...props} style={{ position: 'relative', ...buttonsContainerStyle }}>{children}</div>);
 
-export const Button = ({ children, ...props }) =>
+const Button = ({ children, ...props }) =>
   (<span {...props} style={{ cursor: 'pointer' }}>{children}</span>);
 
 class LightCarousel extends Component {
