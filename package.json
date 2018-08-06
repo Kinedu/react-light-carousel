@@ -1,6 +1,6 @@
 {
   "name": "react-light-carousel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A light weight react based carousel for multiple purposes",
   "main": "dist/main.js",
   "scripts": {
