@@ -1,7 +1,19 @@
-# Light-Carousel
+# React-Light-Carousel
 A light weight react based carousel for multiple purposes.
 
-## Set up
+## Features
+* Autoplay
+* Infinite mode
+* Responsive (all the breakpoints you need)
+* Custom buttons
+
+## Install
+
+```
+  npm i react-light-carousel
+```
+
+## Basic usage
 
 ```
 const BasicCarousel = () => {
