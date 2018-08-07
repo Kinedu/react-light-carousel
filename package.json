@@ -8,7 +8,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "dist": "babel src -d dist --copy-files --no-comments",
-    "prepublish": "npm run dist",
+    "prepublishOnly": "npm run dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
