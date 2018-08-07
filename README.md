@@ -35,7 +35,7 @@ const BasicCarousel = () => {
 | setSlide | number | 0 | The initial slide to show
 | gap | number | 0 | The space between each slide
 | autoplay | boolean | false | The slideshow starts moving automatically
-| speed | number | 0 | The speed of the autoplay
+| speed | number | 3000 | The speed of the autoplay
 | stopOnHover | boolean | true | When true, stops the autoplay temporarily when the mouse is over the slideshow
 | infinite | boolean | false | Makes the slideshow restart the slides when reaching the end
 | showControls | boolean | false | To show the previous and next slide buttons
