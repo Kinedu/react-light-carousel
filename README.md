@@ -15,10 +15,30 @@ A light weight react based carousel for multiple purposes.
 
 ## Basic usage
 
-```
+```js
 const BasicCarousel = () => {
   return (
     <LightCarousel gap={20} showControls>
+      <span>slide 1</span>
+      <span>slide 2</span>
+      <span>slide 3</span>
+    </LightCarousel>
+  );
+}
+```
+
+## Responsive example
+
+```js
+const breakpoints = {
+  0: 1, // Show 1 slide for default
+  400: 2, // Show 2 slides after 400px
+  1000: 4,  // Show 4 after 1000px
+}
+
+const ResponsiveCarousel = () => {
+  return (
+    <LightCarousel gap={20} responsive={breakpoints} showControls>
       <span>slide 1</span>
       <span>slide 2</span>
       <span>slide 3</span>
