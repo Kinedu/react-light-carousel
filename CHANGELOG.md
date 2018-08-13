@@ -1,9 +1,9 @@
 # LightCarousel Changelog
 
-## 1.1.3
+## 1.1.5
 
 ### Changes
-* Save endTransition directly on the class instead of the component state.
+* Update license and add responsive example
 
 ## 1.0.0
 
