@@ -21,6 +21,7 @@ const ResponsiveCarousel = () => {
           400: 2,
           900: 4,
         }}
+        autoplay
       >
         <span className="basic-slide">slide 1</span>
         <span className="basic-slide">slide 2</span>

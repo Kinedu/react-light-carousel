@@ -13,7 +13,7 @@ const LightCarouselContainer = ({ children, containerStyle, ...props }) => (
   }}>{children}</div>
 );
 
-const Slideshow = ({ children, className, slideshowStyle, slideshowRef, ...props }) => (
+const Slideshow = ({ children, slideshowStyle, slideshowRef, ...props }) => (
   <div
     {...props}
     ref={slideshowRef}
