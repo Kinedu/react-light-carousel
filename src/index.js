@@ -5,9 +5,10 @@ import * as R from 'ramda';
 const equalAt = (a, b, path) => R.eqBy(R.view(R.lensPath(path)), a, b);
 
 const LightCarouselContainer = ({ children, containerStyle, ...props }) => (
-  <div style={{
+  <div
+    {...props}
+    style={{
     position: 'relative',
-    display: 'block',
     width: '100%',
     ...containerStyle,
   }}>{children}</div>
@@ -19,7 +20,6 @@ const Slideshow = ({ children, slideshowStyle, slideshowRef, ...props }) => (
     ref={slideshowRef}
     style={{
       position: 'relative',
-      display: 'block',
       width: '100%',
       overflowX: 'hidden',
       ...slideshowStyle,
@@ -40,7 +40,6 @@ const SlidesContainer = ({ children, slideshowWidth, slideContainerRef, ...props
 const Slide = ({ children, autoWidth, slideWidth, gap, ...props }) => (
   <div {...props} style={{
     position: 'relative',
-    display: 'block',
     float: 'left',
     width: autoWidth,
     marginRight: gap,
