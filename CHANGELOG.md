@@ -11,6 +11,10 @@
 ### Fixes
 * SetSlide is now working, to set an initial slide or dynamically set a slide at any time
 
+## 1.1.5
+
+### Changes
+* Update license and add responsive example
 
 ## 1.0.0
 
