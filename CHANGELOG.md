@@ -1,5 +1,17 @@
 # LightCarousel Changelog
 
+## 1.2.0
+
+### Features
+* Adding setSlide carousel example
+
+### Changes
+* Remove all console logs
+
+### Fixes
+* SetSlide is now working, to set an initial slide or dynamically set a slide at any time
+
+
 ## 1.0.0
 
 ### Features

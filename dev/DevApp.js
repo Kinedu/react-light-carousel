@@ -4,6 +4,7 @@ import CustomButtons from '../examples/CustomButtons';
 import InfiniteCarousel from '../examples/InfiniteCarousel';
 import AutoplayCarousel from '../examples/AutoplayCarousel';
 import ResponsiveCarousel from '../examples/ResponsiveCarousel';
+import SetSlideCarousel from '../examples/SetSlideCarousel';
 
 const DevApp = (props) => {
   return (
@@ -14,6 +15,7 @@ const DevApp = (props) => {
       <InfiniteCarousel />
       <AutoplayCarousel />
       <ResponsiveCarousel />
+      <SetSlideCarousel />
     </div>);
 }
 

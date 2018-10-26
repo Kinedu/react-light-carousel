@@ -32,7 +32,7 @@ const BasicCarousel = () => {
 | Name | Type | Default | Descrption |
 |:----:|:----:|:-------:|:-----------|
 | slidesToShow | number | 1 | The number of slides to show at the same time |
-| setSlide | number | 0 | The initial slide to show
+| setSlide | number | 0 | To set the slide you want to be focused (you can use it to set an initial slide)
 | gap | number | 0 | The space between each slide
 | autoplay | boolean | false | The slideshow starts moving automatically
 | speed | number | 0 | The speed of the autoplay

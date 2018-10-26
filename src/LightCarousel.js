@@ -58,6 +58,7 @@ class LightCarousel extends Component {
     super(props);
     this.state = {
       currentSlide: 0,
+      activeSlide: 0,
       enableClick: true,
     };
   }
@@ -121,7 +122,7 @@ class LightCarousel extends Component {
     this.totalSlides = infinite ?
       this.calculateTotalSlides(this.slidesToShow, this.totalUniqueElements) :
       this.totalUniqueElements;
-    this.slideshowWidth = this.totalSlides * (this.displacement + gap);
+    this.slideshowWidth = (this.totalSlides || 1) * this.displacement;
     this.autoplayFunc = autoplay && setInterval(this.moveForward, speed);
 
     if (infinite && stopOnHover && autoplay) this.setMouseEvents(this.clearAutoplay, this.setAutoplay);
@@ -132,6 +133,7 @@ class LightCarousel extends Component {
     this.slidesContainer.style.transform = `translateX(${this.currentPosition}px)`;
     if (setSlide > 0) {
       this.slideTo(setSlide);
+      this.move(setSlide);
     }
   }
 
@@ -144,10 +146,8 @@ class LightCarousel extends Component {
       /* When the current slide index is equal to the index of the last
       of the original elements, reset the position to the beginning. */
       if (this.state.currentSlide === this.totalUniqueElements) {
-        console.log('start');
         this.resetPositionTo('start');
       } else if (this.state.currentSlide === -1) {
-        console.log('end');
         this.resetPositionTo('end');
       }
 
@@ -276,10 +276,12 @@ class LightCarousel extends Component {
   */
   moveBackward = () => {
     /* Disable movement when reach the beginning except when infinite is active */
-    if (this.state.enableClick && (this.state.currentSlide > 0 || this.props.infinite)) {
-      this.slideTo('prev');
-      this.move('left');
-      this.setState({ enableClick: false });
+    if (this.state.enableClick) {
+      if (this.state.currentSlide > 0 || this.props.infinite) {
+        this.slideTo('prev');
+        this.move('left');
+        this.setState({ enableClick: false });
+      }
     }
   }
 
@@ -291,10 +293,12 @@ class LightCarousel extends Component {
   */
   moveForward = () => {
     /* Disable movement when reach the end except when infinite is active */
-    if (this.state.enableClick && (!this.isLastSlide() || this.props.infinite)) {
-      this.slideTo('next');
-      this.move();
-      this.setState({ enableClick: false });
+    if (this.state.enableClick) {
+      if (!this.isLastSlide() || this.props.infinite) {
+        this.slideTo('next');
+        this.move();
+        this.setState({ enableClick: false });
+      }
     }
   }
 
@@ -330,16 +334,33 @@ class LightCarousel extends Component {
     * @param {string} to If 'left' translate in reverse.
   */
   move = (to = 'right') => {
+    const { infinite } = this.props;
+    if (!isNaN(to) && to > 0 && infinite) return; // TODO: setSlide now works, but not on infinite mode.
     this.movingTo = to;
     let newDisplacement = this.displacement;
-    if (!isNaN(to) && to > 0) {
-      newDisplacement *= to;
-    }
     if (to === 'left') { newDisplacement *= -1; }
-    this.currentPosition -= newDisplacement;
+
+    if (!isNaN(to) && to > 0) {
+      let fallbackPosition = this.slideshowWidth - (this.displacement * this.slidesToShow);
+      newDisplacement *= to;
+      let finalPosition = newDisplacement > fallbackPosition ? fallbackPosition : newDisplacement;
+      this.currentPosition = (finalPosition * -1);
+    } else {
+      this.currentPosition -= newDisplacement;
+    }
+
     this.slidesContainer.style.transition = 'transform 0.4s ease-in';
     this.slidesContainer.style.transform = `translateX(${this.currentPosition}px)`;
   }
+
+    /**
+      * The active slide is different from the current, the former represent
+      * something as the selected slide and can be use to return a value, the latter
+      * is for internal use to calculate when to stop the translations.
+      *
+      * @param {number} activeSlide The slide index to set as the active one
+    */
+    setActiveSlide = (activeSlide) => this.setState({ activeSlide });
 
   /**
     * Reset the position of the slide to the
@@ -380,6 +401,12 @@ class LightCarousel extends Component {
   */
   hasAllItemsVisible = () => this.state.currentSlide === 0 && this.isLastSlide();
 
+
+  handleSlideClick = (slideIndex) => {
+    this.setActiveSlide(slideIndex);
+    this.props.onSlideClicked(slideIndex);
+  }
+
   /**
     * Get the children elements.
     * Calculate the width of the slides,
@@ -395,13 +422,14 @@ class LightCarousel extends Component {
     /* It needs to pass the children to the "toArray" react function, because
      * if there is only one child, it won't be an array of one.
      */
-    const slides = React.Children.toArray(children);
+    const slides = React.Children.toArray(children).map((slide, i) => ({ slide, id: i }));
     const clientWidth = R.path(['clientWidth'], this.slideshow) || 0;
     const slideshowClientWidth = clientWidth >= 0 ? clientWidth : this.slideshowClientWidth;
     const autoWidth = ((slideshowClientWidth + gap) / this.slidesToShow) - gap;
     this.displacement = (slideWidth || autoWidth) + gap;
-    this.slideshowWidth = this.displacement * (this.totalSlides || 1);
-
+    this.slideshowWidth = (this.totalSlides || 1) * this.displacement;
+    const isCurrent = (currentSlide, slideId) => (currentSlide === slideId ? 'current' : '');
+    const isActive = (activeSlide, slideId) => (activeSlide === slideId ? 'active' : '');
     if (infinite) {
       this.addClones(slides, this.slidesToShow);
     }
@@ -411,13 +439,18 @@ class LightCarousel extends Component {
         slideContainerRef={(el) => { this.slidesContainer = el; }}
         slideshowWidth={this.slideshowWidth}
       >
-        {slides.map((slide, index) => (
+        {slides.map(({ slide, id }, index) => (
           <Slide
             key={index}
-            className="light-carousel-slide"
+            className={`
+              light-carousel-slide
+              ${isCurrent(this.state.currentSlide, id)}
+              ${isActive(this.state.activeSlide, id)}
+            `}
             autoWidth={autoWidth}
             slideWidth={slideWidth}
             gap={gap}
+            onClick={() => this.handleSlideClick(index)}
           >
             {slide}
           </Slide>
@@ -499,6 +532,7 @@ LightCarousel.propTypes = {
   prevBtn: PropTypes.node,
   /* Content of the next button */
   nextBtn: PropTypes.node,
+  onSlideClicked: PropTypes.func,
   onPreviousSlide: PropTypes.func,
   onNextSlide: PropTypes.func,
   /* Allow the user to set the number of slides to show for
@@ -536,8 +570,9 @@ LightCarousel.defaultProps = {
   showControls: false,
   prevBtn: 'prev',
   nextBtn: 'next',
-  onPreviousSlide: () => { },
-  onNextSlide: () => { },
+  onSlideClicked: () => {},
+  onPreviousSlide: () => {},
+  onNextSlide: () => {},
   className: '',
   responsive: {},
   slideshowStyle: {},
