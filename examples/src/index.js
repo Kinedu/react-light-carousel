@@ -1,11 +1,12 @@
 /***  examples/src/index.js ***/
 import React from 'react';
-import { render} from 'react-dom';
+import { render } from 'react-dom';
 import BasicCarousel from '../BasicCarousel';
 import CustomButtons from '../CustomButtons';
 import InfiniteCarousel from '../InfiniteCarousel';
 import AutoplayCarousel from '../AutoplayCarousel';
 import ResponsiveCarousel from '../ResponsiveCarousel';
+import SetSlideCarousel from '../SetSlideCarousel';
 import './styles.css';
 
 const App = (props) => {
@@ -17,6 +18,7 @@ const App = (props) => {
       <InfiniteCarousel />
       <AutoplayCarousel />
       <ResponsiveCarousel />
+      <SetSlideCarousel />
     </div>);
 }
 
