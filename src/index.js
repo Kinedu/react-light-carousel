@@ -5,7 +5,9 @@ import * as R from 'ramda';
 const equalAt = (a, b, path) => R.eqBy(R.view(R.lensPath(path)), a, b);
 
 export const LightCarouselContainer = ({ children, containerStyle, ...props }) => (
-  <div style={{
+  <div
+    {...props}
+    style={{
     position: 'relative',
     display: 'block',
     width: '100%',
@@ -13,7 +15,7 @@ export const LightCarouselContainer = ({ children, containerStyle, ...props }) =
   }}>{children}</div>
 );
 
-export const Slideshow = ({ children, className, slideshowStyle, slideshowRef, ...props }) => (
+export const Slideshow = ({ children, slideshowStyle, slideshowRef, ...props }) => (
   <div
     {...props}
     ref={slideshowRef}
